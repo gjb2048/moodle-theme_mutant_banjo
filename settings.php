@@ -47,6 +47,7 @@ if ($ADMIN->fulltree) {
     );
     $setting = new admin_setting_sliderselect($name, $title, $description, $default, $choices, $noslidermode,
                     'javascript', 340, 360, 'mutant_banjo', 'colourswatch');
+    $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($setting);
 
     // Font slider...
@@ -67,7 +68,8 @@ if ($ADMIN->fulltree) {
     );
     //$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $setting = new admin_setting_sliderselect($name, $title, $description, $default, $choices, $noslidermode,
-                    'javascript', 400, 200, 'mutant_banjo', 'font');
+                    'javascript', 500, 200, 'mutant_banjo', 'font');
+    $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($setting);
 
     // Invert Navbar to dark background.
