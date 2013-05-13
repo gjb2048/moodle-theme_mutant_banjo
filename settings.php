@@ -31,7 +31,7 @@ if ($ADMIN->fulltree) {
     require_once($CFG->dirroot . '/theme/mutant_banjo/admin_setting_sliderselect.php');
 
     // Swatch slider...
-    $noslidermode = true;
+    $noslidermode = false;
     $name = 'theme_mutant_banjo/colourswatch';
     $title = get_string('colourswatch', 'theme_mutant_banjo');
     $description = get_string('colourswatch_desc', 'theme_mutant_banjo');
@@ -46,7 +46,7 @@ if ($ADMIN->fulltree) {
         'g' => get_string('red', 'theme_mutant_banjo')
     );
     $setting = new admin_setting_sliderselect($name, $title, $description, $default, $choices, $noslidermode,
-                    'javascript', 340, 360, 'mutant_banjo', 'colourswatch');
+                    'javascript', 460, 257, 'mutant_banjo', 'colourswatch');
     $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($setting);
 
@@ -55,9 +55,9 @@ if ($ADMIN->fulltree) {
     $name = 'theme_mutant_banjo/font';
     $title = get_string('font', 'theme_mutant_banjo');
     $description = get_string('font_desc', 'theme_mutant_banjo');
-    $default = 'BPrelay';
+    $default = 'BPreplay';
     $choices = array(// Note: Key must match filename without .otf.
-        'BPrelay' => get_string('bprelay', 'theme_mutant_banjo'),
+        'BPreplay' => get_string('bpreplay', 'theme_mutant_banjo'),
         'Cabin' => get_string('cabin', 'theme_mutant_banjo'),
         'CabinSketch' => get_string('cabinsketch', 'theme_mutant_banjo'),
         'Quattrocento' => get_string('quattrocento', 'theme_mutant_banjo'),
