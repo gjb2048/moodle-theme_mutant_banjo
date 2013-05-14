@@ -43,7 +43,8 @@ if ($ADMIN->fulltree) {
         'd' => get_string('pink', 'theme_mutant_banjo'),
         'e' => get_string('yellow', 'theme_mutant_banjo'),
         'f' => get_string('purple', 'theme_mutant_banjo'),
-        'g' => get_string('red', 'theme_mutant_banjo')
+        'g' => get_string('red', 'theme_mutant_banjo'),
+        's' => get_string('shoelace', 'theme_mutant_banjo')
     );
     $setting = new admin_setting_sliderselect($name, $title, $description, $default, $choices, $noslidermode,
                     'javascript', 460, 257, 'mutant_banjo', 'colourswatch');

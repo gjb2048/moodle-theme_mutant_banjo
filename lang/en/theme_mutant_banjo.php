@@ -59,6 +59,7 @@ $string['pink'] = 'Pink';
 $string['yellow'] = 'Yellow';
 $string['purple'] = 'Purple';
 $string['red'] = 'Red';
+$string['shoelace'] = 'Shoelace';
 $string['font'] = 'Mutant Banjo theme font';
 $string['font_desc'] = 'Change the font of the theme.';
 $string['bpreplay'] = 'BPreplay';
