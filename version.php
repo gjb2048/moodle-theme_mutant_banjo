@@ -27,11 +27,11 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2013051200;
-$plugin->requires  = 2013050200.00; // 2.5beta+ (Build: 20130502).
+$plugin->version   = 2013061800;
+$plugin->requires  = 2013051400.05; // 2.5+ (Build: 20130614).
 $plugin->component = 'theme_mutant_banjo';
 $plugin->maturity = MATURITY_BETA;
-$plugin->release = '2.5.0.1';
+$plugin->release = '2.5.0.2';
 $plugin->dependencies = array(
     'theme_bootstrapbase'  => 2013050100
 );

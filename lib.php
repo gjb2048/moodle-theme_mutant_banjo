@@ -25,10 +25,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-function mutant_banjo_process_css($css, $theme) {
+function theme_mutant_banjo_process_css($css, $theme) {
     // Set the background image for the logo.
     $logo = $theme->setting_file_url('logo', 'logo');
-    $css = mutant_banjo_set_logo($css, $logo);
+    $css = theme_mutant_banjo_set_logo($css, $logo);
 
     // Set the font.
     if (!empty($theme->settings->font)) {
@@ -36,7 +36,7 @@ function mutant_banjo_process_css($css, $theme) {
     } else {
         $fontcss = null;
     }
-    $css = mutant_banjo_set_font($css, $fontcss);
+    $css = theme_mutant_banjo_set_font($css, $fontcss);
 
     // Set custom CSS.
     if (!empty($theme->settings->customcss)) {
@@ -44,12 +44,12 @@ function mutant_banjo_process_css($css, $theme) {
     } else {
         $customcss = null;
     }
-    $css = mutant_banjo_set_customcss($css, $customcss);
+    $css = theme_mutant_banjo_set_customcss($css, $customcss);
 
     return $css;
 }
 
-function mutant_banjo_set_logo($css, $logo) {
+function theme_mutant_banjo_set_logo($css, $logo) {
     global $OUTPUT;
     $tag = '[[setting:logo]]';
     $replacement = $logo;
@@ -71,7 +71,7 @@ function theme_mutant_banjo_pluginfile($course, $cm, $context, $filearea, $args,
     }
 }
 
-function mutant_banjo_set_font($css, $fontcss) {
+function theme_mutant_banjo_set_font($css, $fontcss) {
     global $CFG;
     $tag = '[[setting:fontwww]]';
     $css = str_replace($tag, $CFG->wwwroot . '/theme/mutant_banjo/style/font/', $css);
@@ -79,7 +79,7 @@ function mutant_banjo_set_font($css, $fontcss) {
     $css = str_replace($tag, $fontcss, $css);
     return $css;
 }
-function mutant_banjo_set_customcss($css, $customcss) {
+function theme_mutant_banjo_set_customcss($css, $customcss) {
     $tag = '[[setting:customcss]]';
     $replacement = $customcss;
     if (is_null($replacement)) {

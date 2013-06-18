@@ -59,6 +59,9 @@ Version Information
 12th May 2013 - Version 2.5.0.1 - Beta
   1.  Initial version for Moodle 2.5beta.
 
+18th June 2013 - Version 2.5.0.2 - Beta
+  1.  Implemented MDL-40137 to fix method names in 'lib.php'.
+
 Thanks
 ======
 My thanks go to all the creators and participants of the Bootstrap theme:

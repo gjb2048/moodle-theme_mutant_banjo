@@ -162,12 +162,5 @@ $THEME->plugins_exclude_sheets = array(
 );
 
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
-$THEME->csspostprocess = 'mutant_banjo_process_css';
+$THEME->csspostprocess = 'theme_mutant_banjo_process_css';
 
-$useragent = '';
-if (!empty($_SERVER['HTTP_USER_AGENT'])) {
-    $useragent = $_SERVER['HTTP_USER_AGENT'];
-}
-if (strpos($useragent, 'MSIE 8') || strpos($useragent, 'MSIE 7')) {
-    $THEME->javascripts[] = 'html5shiv';
-}
