@@ -62,23 +62,24 @@ function theme_mutant_banjo_set_logo($css, $logo) {
     return $css;
 }
 
-function theme_mutant_banjo_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
-    if ($context->contextlevel == CONTEXT_SYSTEM and $filearea === 'logo') {
-        $theme = theme_config::load('mutant_banjo');
-        return $theme->setting_file_serve('logo', $args, $forcedownload, $options);
-    } else {
-        send_file_not_found();
-    }
-}
-
 function theme_mutant_banjo_set_font($css, $fontcss) {
     global $CFG;
-    $tag = '[[setting:fontwww]]';
-    $css = str_replace($tag, $CFG->wwwroot . '/theme/mutant_banjo/style/font/', $css);
     $tag = '[[setting:font]]';
     $css = str_replace($tag, $fontcss, $css);
+    $tag = '[[setting:fontwww]]';
+    //$css = str_replace($tag, $CFG->wwwroot . '/theme/mutant_banjo/style/font/', $css);
+
+    $syscontext = context_system::instance();
+    $itemid = theme_get_revision();
+    $url = moodle_url::make_file_url("$CFG->wwwroot/pluginfile.php", "/$syscontext->id/theme_mutant_banjo/font/$itemid/");
+    // Now this is tricky because the we can not hard code http or https here, lets use the relative link.
+    // Note: unfortunately moodle_url does not support //urls yet.
+    $url = preg_replace('|^https?://|i', '//', $url->out(false));
+
+    $css = str_replace($tag, $url, $css);
     return $css;
 }
+
 function theme_mutant_banjo_set_customcss($css, $customcss) {
     $tag = '[[setting:customcss]]';
     $replacement = $customcss;
@@ -89,4 +90,61 @@ function theme_mutant_banjo_set_customcss($css, $customcss) {
     $css = str_replace($tag, $replacement, $css);
 
     return $css;
+}
+
+function theme_mutant_banjo_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
+    if ($context->contextlevel == CONTEXT_SYSTEM) {
+        if ($filearea === 'logo') {
+           $theme = theme_config::load('mutant_banjo');
+           return $theme->setting_file_serve('logo', $args, $forcedownload, $options);
+        } else if ($filearea === 'font') {
+            global $CFG;
+            if (!empty($CFG->themedir)) {
+                $thefontpath = $CFG->themedir . '/mutant_banjo/style/font/';
+            } else {
+                $thefontpath = $CFG->dirroot . '/theme/mutant_banjo/style/font/';
+            }
+
+            //send_file($thefontpath.$args[1], $args[1]);  // Mime type detection not working?
+            // Note: Third parameter is normally 'default' which is the 'lifetime' of the file.  Here set lower for development purposes.
+            send_file($thefontpath.$args[1], $args[1], 20 , 0, false, false, 'font/opentype');
+        } else {
+            send_file_not_found();
+        }
+    } else {
+        send_file_not_found();
+    }
+}
+
+/**
+ * Returns an object containing HTML for the areas affected by settings.
+ *
+ * @param renderer_base $output Pass in $OUTPUT.
+ * @param moodle_page $page Pass in $PAGE.
+ * @return stdClass An object with the following properties:
+ *      - navbarclass A CSS class to use on the navbar. By default ''.
+ *      - heading HTML to use for the heading. A logo if one is selected or the default heading.
+ *      - footnote HTML to use as a footnote. By default ''.
+ */
+function theme_mutant_banjo_get_html_for_settings(renderer_base $output, moodle_page $page) {
+    global $CFG;
+    $return = new stdClass;
+
+    $return->navbarclass = '';
+    if (!empty($page->theme->settings->invert)) {
+        $return->navbarclass .= ' navbar-inverse';
+    }
+
+    if (!empty($page->theme->settings->logo)) {
+        $return->heading = html_writer::link($CFG->wwwroot, '', array('title' => get_string('home'), 'class' => 'logo'));
+    } else {
+        $return->heading = $output->page_heading();
+    }
+
+    $return->footnote = '';
+    if (!empty($page->theme->settings->footnote)) {
+        $return->footnote = '<div class="footnote text-center">'.$page->theme->settings->footnote.'</div>';
+    }
+
+    return $return;
 }

@@ -56,11 +56,15 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-12th May 2013 - Version 2.5.0.1 - Beta
-  1.  Initial version for Moodle 2.5beta.
+26th August 2013 - Version 2.5.0.3 - Beta
+  1.  Updated font serving, blocks, layout and renderer code from Shoelace.
+  2.  Updated BX Slider to 4.1.1.
 
 18th June 2013 - Version 2.5.0.2 - Beta
   1.  Implemented MDL-40137 to fix method names in 'lib.php'.
+
+12th May 2013 - Version 2.5.0.1 - Beta
+  1.  Initial version for Moodle 2.5beta.
 
 Thanks
 ======
@@ -71,6 +75,6 @@ And again to Mary Evans for the 'Clean' theme.
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 12th May 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 26th August 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

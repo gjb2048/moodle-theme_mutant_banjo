@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * mutant_banjo theme with the underlying Bootstrap theme.
+ * Mutant Banjo theme with the underlying Bootstrap theme.
  *
  * @package    theme
  * @subpackage mutant_banjo
@@ -25,13 +25,5 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+require_once('renderers/core_renderer.php');
 
-$plugin->version   = 2013082600;
-$plugin->requires  = 2013051400.05; // 2.5+ (Build: 20130614).
-$plugin->component = 'theme_mutant_banjo';
-$plugin->maturity = MATURITY_BETA;
-$plugin->release = '2.5.0.3';
-$plugin->dependencies = array(
-    'theme_bootstrapbase'  => 2013050100
-);

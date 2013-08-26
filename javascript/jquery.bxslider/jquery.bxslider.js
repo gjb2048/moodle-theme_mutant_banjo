@@ -1,5 +1,5 @@
 /**
- * BxSlider v4.1 - Fully loaded, responsive content slider
+ * BxSlider v4.1.1 - Fully loaded, responsive content slider
  * http://bxslider.com
  *
  * Copyright 2012, Steven Wanderski - http://stevenwanderski.com - http://bxcreative.com
@@ -32,6 +32,7 @@
 		video: false,
 		useCSS: true,
 		preloadImages: 'visible',
+		responsive: true,
 
 		// TOUCH
 		touchEnabled: true,
@@ -84,7 +85,7 @@
 
 	$.fn.bxSlider = function(options){
 		
-		if(this.length == 0) return;
+		if(this.length == 0) return this;
 		
 		// support mutltiple elements
 		if(this.length > 1){
@@ -164,6 +165,11 @@
 			}());
 			// if vertical mode always make maxSlides and minSlides equal
 			if(slider.settings.mode == 'vertical') slider.settings.maxSlides = slider.settings.minSlides;
+			// save original style data
+			el.data("origStyle", el.attr("style"));
+			el.children(slider.settings.slideSelector).each(function() {
+			  $(this).data("origStyle", $(this).attr("style"));
+			});
 			// perform all DOM / CSS modifications
 			setup();
 		}
@@ -182,7 +188,7 @@
 			// set el to a massive width, to hold any needed slides
 			// also strip any margin and padding from el
 			el.css({
-				width: slider.settings.mode == 'horizontal' ? slider.children.length * 215 + '%' : 'auto',
+				width: slider.settings.mode == 'horizontal' ? (slider.children.length * 100 + 215) + '%' : 'auto',
 				position: 'relative'
 			});
 			// if using CSS, add the easing property
@@ -202,6 +208,12 @@
 			slider.viewport.parent().css({
 				maxWidth: getViewportMaxWidth()
 			});
+			// make modification to the wrapper (.bx-wrapper)
+			if(!slider.settings.pager) {
+				slider.viewport.parent().css({
+				margin: '0 auto 0px'
+				});
+			}
 			// apply css to all slider children
 			slider.children.css({
 				'float': slider.settings.mode == 'horizontal' ? 'left' : 'none',
@@ -209,7 +221,7 @@
 				position: 'relative'
 			});
 			// apply the calculated width after the float is applied to prevent scrollbar interference
-			slider.children.width(getSlideWidth());
+			slider.children.css('width', getSlideWidth());
 			// if slideMargin is supplied, add the css
 			if(slider.settings.mode == 'horizontal' && slider.settings.slideMargin > 0) slider.children.css('marginRight', slider.settings.slideMargin);
 			if(slider.settings.mode == 'vertical' && slider.settings.slideMargin > 0) slider.children.css('marginBottom', slider.settings.slideMargin);
@@ -227,20 +239,13 @@
 			slider.controls.el = $('<div class="bx-controls" />');
 			// if captions are requested, add them
 			if(slider.settings.captions) appendCaptions();
-			// if infinite loop, prepare additional slides
-			if(slider.settings.infiniteLoop && slider.settings.mode != 'fade' && !slider.settings.ticker){
-				var slice = slider.settings.mode == 'vertical' ? slider.settings.minSlides : slider.settings.maxSlides;
-				var sliceAppend = slider.children.slice(0, slice).clone().addClass('bx-clone');
-				var slicePrepend = slider.children.slice(-slice).clone().addClass('bx-clone');
-				el.append(sliceAppend).prepend(slicePrepend);
-			}
 			// check if startSlide is last slide
 			slider.active.last = slider.settings.startSlide == getPagerQty() - 1;
 			// if video is true, set up the fitVids plugin
 			if(slider.settings.video) el.fitVids();
 			// set the default preload selector (visible)
 			var preloadSelector = slider.children.eq(slider.settings.startSlide);
-			if (slider.settings.preloadImages == "all") preloadSelector = el.children();
+			if (slider.settings.preloadImages == "all") preloadSelector = slider.children;
 			// only check for control addition if not in "ticker" mode
 			if(!slider.settings.ticker){
 				// if pager is requested, add it
@@ -251,15 +256,42 @@
 				if(slider.settings.auto && slider.settings.autoControls) appendControlsAuto();
 				// if any control option is requested, add the controls wrapper
 				if(slider.settings.controls || slider.settings.autoControls || slider.settings.pager) slider.viewport.after(slider.controls.el);
+			// if ticker mode, do not allow a pager
+			}else{
+				slider.settings.pager = false;
 			}
 			// preload all images, then perform final DOM / CSS modifications that depend on images being loaded
-			preloadSelector.imagesLoaded(start);
+			loadElements(preloadSelector, start);
+		}
+
+		var loadElements = function(selector, callback){
+			var total = selector.find('img, iframe').length;
+			if (total == 0){
+				callback();
+				return;
+			}
+			var count = 0;
+			selector.find('img, iframe').each(function(){
+				if($(this).is('img')) $(this).attr('src', $(this).attr('src') + '?timestamp=' + new Date().getTime());
+				$(this).load(function(){
+					setTimeout(function(){
+						if(++count == total) callback();
+					}, 0)
+				});
+			});
 		}
 
 		/**
 		 * Start the slider
 		 */
 		var start = function(){
+			// if infinite loop, prepare additional slides
+			if(slider.settings.infiniteLoop && slider.settings.mode != 'fade' && !slider.settings.ticker){
+				var slice = slider.settings.mode == 'vertical' ? slider.settings.minSlides : slider.settings.maxSlides;
+				var sliceAppend = slider.children.slice(0, slice).clone().addClass('bx-clone');
+				var slicePrepend = slider.children.slice(-slice).clone().addClass('bx-clone');
+				el.append(sliceAppend).prepend(slicePrepend);
+			}
 			// remove the loading DOM element
 			slider.loader.remove();
 			// set the left / top position of "el"
@@ -269,13 +301,13 @@
 			// set the viewport height
 			slider.viewport.height(getViewportHeight());
 			// make sure everything is positioned just right (same as a window resize)
-			el.updateDimensions();
+			el.redrawSlider();
 			// onSliderLoad callback
 			slider.settings.onSliderLoad(slider.active.index);
 			// slider has been fully initialized
 			slider.initialized = true;
 			// bind the resize call to the window
-			$(window).bind('resize', resizeWindow);
+			if (slider.settings.responsive) $(window).bind('resize', resizeWindow);
 			// if auto is true, start the show
 			if (slider.settings.auto && slider.settings.autoStart) initAuto();
 			// if ticker is true, start the ticker
@@ -545,7 +577,7 @@
 		 */
 		var populatePager = function(){
 			var pagerHtml = '';
-			pagerQty = getPagerQty();
+			var pagerQty = getPagerQty();
 			// loop through each pager item
 			for(var i=0; i < pagerQty; i++){
 				var linkContent = '';
@@ -654,7 +686,9 @@
 				// get the image title attribute
 				var title = $(this).find('img:first').attr('title');
 				// append the caption
-				if (title != undefined) $(this).append('<div class="bx-caption"><span>' + title + '</span></div>');
+				if (title != undefined && ('' + title).length) {
+                    $(this).append('<div class="bx-caption"><span>' + title + '</span></div>');
+                }
 			});
 		}
 		
@@ -730,8 +764,12 @@
 		 */
 		var updatePagerActive = function(slideIndex){
 			// if "short" pager type
+			var len = slider.children.length; // nb of children
 			if(slider.settings.pagerType == 'short'){
-				slider.pagerEl.html((slideIndex + 1) + slider.settings.pagerShortSeparator + slider.children.length);
+				if(slider.settings.maxSlides > 1) {
+					len = Math.ceil(slider.children.length/slider.settings.maxSlides);
+				}
+				slider.pagerEl.html( (slideIndex + 1) + slider.settings.pagerShortSeparator + len);
 				return;
 			}
 			// remove all pager active classes
@@ -788,8 +826,10 @@
 		 * Updates the direction controls (checks if either should be hidden)
 		 */
 		var updateDirectionControls = function(){
-			// if infiniteLoop is false and hideControlOnEnd is true
-			if(!slider.settings.infiniteLoop && slider.settings.hideControlOnEnd){
+			if(getPagerQty() == 1){
+				slider.controls.prev.addClass('disabled');
+				slider.controls.next.addClass('disabled');
+			}else if(!slider.settings.infiniteLoop && slider.settings.hideControlOnEnd){
 				// if first slide
 				if (slider.active.index == 0){
 					slider.controls.prev.addClass('disabled');
@@ -1019,6 +1059,9 @@
 			slider.viewport.unbind('touchend', onTouchEnd);
 		}
 
+		/**
+		 * Window resize event callback
+		 */
 		var resizeWindow = function(e){
 			// get the new window dimens (again, thank you IE)
 			var windowWidthNew = $(window).width();
@@ -1030,24 +1073,8 @@
 				// set the new window dimens
 				windowWidth = windowWidthNew;
 				windowHeight = windowHeightNew;
-
-				el.updateDimensions();
-
-				// // resize all children in ratio to new screen size
-				// slider.children.add(el.find('.bx-clone')).width(getSlideWidth());
-				// // adjust the height
-				// slider.viewport.css('height', getViewportHeight());
-
-				// if active.last was true before the screen resize, we want
-				// to keep it last no matter what screen size we end on
-				if (slider.active.last) slider.active.index = getPagerQty() - 1;
-				// if the active index (page) no longer exists due to the resize, simply set the index as last
-				if (slider.active.index >= getPagerQty()) slider.active.last = true;
-				// if a pager is being displayed and a custom pager is not being used, update it
-				if(slider.settings.pager && !slider.settings.pagerCustom){
-					populatePager();
-					updatePagerActive(slider.active.index);
-				}
+				// update all dynamic elements
+				el.redrawSlider();
 			}
 		}
 		
@@ -1124,7 +1151,7 @@
 						var lastChild = slider.children.eq(slider.children.length - 1);
 						position = lastChild.position();
 						// calculate the position of the last slide
-						moveBy = slider.viewport.width() - lastChild.width();
+						moveBy = slider.viewport.width() - lastChild.outerWidth();
 					}else{
 						// get last showing index position
 						var lastShowingIndex = slider.children.length - slider.settings.minSlides;
@@ -1139,16 +1166,23 @@
 				// if infinite loop and "Next" is clicked on the last slide
 				}else if(direction == 'next' && slider.active.index == 0){
 					// get the last clone position
-					position = el.find('.bx-clone').eq(slider.settings.maxSlides).position();
+					position = el.find('> .bx-clone').eq(slider.settings.maxSlides).position();
 					slider.active.last = false;
 				// normal non-zero requests
 				}else if(slideIndex >= 0){
 					var requestEl = slideIndex * getMoveBy();
 					position = slider.children.eq(requestEl).position();
 				}
-				// plugin values to be animated
-				var value = slider.settings.mode == 'horizontal' ? -(position.left - moveBy) : -position.top;
-				setPositionProperty(value, 'slide', slider.settings.speed);
+				
+				/* If the position doesn't exist 
+				 * (e.g. if you destroy the slider on a next click),
+				 * it doesn't throw an error.
+				 */
+				if ("undefined" !== typeof(position)) {
+					var value = slider.settings.mode == 'horizontal' ? -(position.left - moveBy) : -position.top;
+					// plugin values to be animated
+					setPositionProperty(value, 'slide', slider.settings.speed);
+				}
 			}
 		}
 		
@@ -1219,13 +1253,26 @@
 			return slider.children.length;
 		}
 
-		el.updateDimensions = function(){
+		/**
+		 * Update all dynamic slider elements
+		 */
+		el.redrawSlider = function(){
 			// resize all children in ratio to new screen size
-			slider.children.add(el.find('.bx-clone')).width(getSlideWidth());
+			slider.children.add(el.find('.bx-clone')).outerWidth(getSlideWidth());
 			// adjust the height
 			slider.viewport.css('height', getViewportHeight());
 			// update the slide position
 			if(!slider.settings.ticker) setSlidePosition();
+			// if active.last was true before the screen resize, we want
+			// to keep it last no matter what screen size we end on
+			if (slider.active.last) slider.active.index = getPagerQty() - 1;
+			// if the active index (page) no longer exists due to the resize, simply set the index as last
+			if (slider.active.index >= getPagerQty()) slider.active.last = true;
+			// if a pager is being displayed and a custom pager is not being used, update it
+			if(slider.settings.pager && !slider.settings.pagerCustom){
+				populatePager();
+				updatePagerActive(slider.active.index);
+			}
 		}
 
 		/**
@@ -1236,8 +1283,11 @@
 			if(!slider.initialized) return;
 			slider.initialized = false;
 			$('.bx-clone', this).remove();
-			slider.children.removeAttr('style');
-			this.removeAttr('style').unwrap().unwrap();
+			slider.children.each(function() {
+				$(this).data("origStyle") != undefined ? $(this).attr("style", $(this).data("origStyle")) : $(this).removeAttr('style');
+			});
+			$(this).data("origStyle") != undefined ? this.attr("style", $(this).data("origStyle")) : $(this).removeAttr('style');
+			$(this).unwrap().unwrap();
 			if(slider.controls.el) slider.controls.el.remove();
 			if(slider.controls.next) slider.controls.next.remove();
 			if(slider.controls.prev) slider.controls.prev.remove();
@@ -1245,7 +1295,7 @@
 			$('.bx-caption', this).remove();
 			if(slider.controls.autoEl) slider.controls.autoEl.remove();
 			clearInterval(slider.interval);
-			$(window).unbind('resize', resizeWindow);
+			if(slider.settings.responsive) $(window).unbind('resize', resizeWindow);
 		}
 
 		/**
@@ -1264,17 +1314,3 @@
 	}
 
 })(jQuery);
-
-/*!
- * jQuery imagesLoaded plugin v2.1.0
- * http://github.com/desandro/imagesloaded
- *
- * MIT License. by Paul Irish et al.
- */
-
-/*jshint curly: true, eqeqeq: true, noempty: true, strict: true, undef: true, browser: true */
-/*global jQuery: false */
-
-(function(c,n){var l="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";c.fn.imagesLoaded=function(f){function m(){var b=c(i),a=c(h);d&&(h.length?d.reject(e,b,a):d.resolve(e));c.isFunction(f)&&f.call(g,e,b,a)}function j(b,a){b.src===l||-1!==c.inArray(b,k)||(k.push(b),a?h.push(b):i.push(b),c.data(b,"imagesLoaded",{isBroken:a,src:b.src}),o&&d.notifyWith(c(b),[a,e,c(i),c(h)]),e.length===k.length&&(setTimeout(m),e.unbind(".imagesLoaded")))}var g=this,d=c.isFunction(c.Deferred)?c.Deferred():
-0,o=c.isFunction(d.notify),e=g.find("img").add(g.filter("img")),k=[],i=[],h=[];c.isPlainObject(f)&&c.each(f,function(b,a){if("callback"===b)f=a;else if(d)d[b](a)});e.length?e.bind("load.imagesLoaded error.imagesLoaded",function(b){j(b.target,"error"===b.type)}).each(function(b,a){var d=a.src,e=c.data(a,"imagesLoaded");if(e&&e.src===d)j(a,e.isBroken);else if(a.complete&&a.naturalWidth!==n)j(a,0===a.naturalWidth||0===a.naturalHeight);else if(a.readyState||a.complete)a.src=l,a.src=d}):m();return d?d.promise(g):
-g}})(jQuery);
