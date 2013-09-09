@@ -46,7 +46,7 @@ if ($ADMIN->fulltree) {
         'g' => get_string('red', 'theme_mutant_banjo')
     );
     $setting = new admin_setting_sliderselect($name, $title, $description, $default, $choices, $noslidermode,
-                    'javascript', 460, 257, 'mutant_banjo', 'colourswatch', 'colourswatch');
+                    'javascript', 460, 261, 'mutant_banjo', 'colourswatch', 'colourswatch');
     $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($setting);
 

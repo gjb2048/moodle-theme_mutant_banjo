@@ -6,7 +6,7 @@ Required version of Moodle
 ==========================
 This version works with Moodle version 2013051400.05 release 2.5 (Build: 20130614) and above until the next release.
 
-It is currently in 'BETA' so must NOT be used on a production server.  To progress to 'STABLE' I need feedback from
+Mutant Banjo is currently in 'BETA' so must NOT be used on a production server.  To progress to 'STABLE' I need feedback from
 you that everything is ok.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
@@ -88,6 +88,8 @@ Future Improvements
 ===================
 1.  Convert slider setting jQuery in YUI code to YUI Modules and add a constructor so that the current set of files can be reduced
     down to one and remove the need for jQuery to extract initialisation information from the mark-up.
+2.  Add more fonts.
+3.  Have a footer block area as I'm currently experimenting with in the Shoelace theme.
 
 Version Information
 ===================
