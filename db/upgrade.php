@@ -29,7 +29,7 @@
 function xmldb_theme_mutant_banjo_upgrade($oldversion = 0) {
 
     // Automatic 'Purge all caches'....
-    if ($oldversion < 2013051200) {
+    if ($oldversion < 2013090900) {
         purge_all_caches();
     }
 
