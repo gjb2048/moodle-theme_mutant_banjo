@@ -35,6 +35,7 @@ class admin_setting_sliderselect extends admin_setting {
     private $imageheight;
     private $themename;
     private $settingname;
+    private $imageprefix;
 
     /**
      * Constructor
@@ -48,9 +49,10 @@ class admin_setting_sliderselect extends admin_setting {
      * @param int $imagewidth The width of the image.
      * @param int $imageheight The height of the image.
      * @param string $themename The name of the theme, e.g. 'mutant_banjo'.
-     * @param string $settingname The name of the setting, e.g. 'colourswatch'.  This is used to prefix the image name in your 'pix' folder, e.g, 'colourswatch-choices array key' where 'choices array key' is the key you want the image assocated with, i.e. 'a' for "'a' => get_string('blue', 'theme_moobile')".
+     * @param string $settingname The name of the setting, e.g. 'colourswatch'.  This is used to prefix the image name in your 'pix' folder, e.g, 'colourswatch-choices array key' where 'choices array key' is the key you want the image associated with, i.e. 'a' for "'a' => get_string('blue', 'theme_moobile')".
+     * @param string $imageprefix The prefix of the associated image file, useful for when using the same set of images in two settings.
      */
-    public function __construct($name, $visiblename, $description, $defaultsetting, $choices, $noslidermode, $javascriptfolder, $imagewidth, $imageheight, $themename, $settingname) {
+    public function __construct($name, $visiblename, $description, $defaultsetting, $choices, $noslidermode, $javascriptfolder, $imagewidth, $imageheight, $themename, $settingname, $imageprefix) {
         $this->choices = $choices;
         $this->noslidermode = $noslidermode;
         $this->javascriptfolder = $javascriptfolder;
@@ -58,6 +60,7 @@ class admin_setting_sliderselect extends admin_setting {
         $this->imageheight = $imageheight;
         $this->themename = $themename;
         $this->settingname = $settingname;
+        $this->imageprefix = $imageprefix;
         parent::__construct($name, $visiblename, $description, $defaultsetting);
     }
 
@@ -177,7 +180,7 @@ class admin_setting_sliderselect extends admin_setting {
             $startslide = 0;
             foreach ($this->choices as $key => $value) {
                 $selecthtml .= html_writer::start_tag('li');
-                $selecthtml .= html_writer::start_tag('img', array('src' => $CFG->wwwroot . '/theme/' . $this->themename . '/pix/' . $this->settingname . '-' . $key . '.png', 'style' => 'width: ' . $this->imagewidth . 'px; height: ' . $this->imageheight . 'px', 'class' => $this->themename . $this->settingname . 'image-' . $index, $this->themename . $this->settingname => $key, 'title' => $value)); // Cannot use pix_url as theme might be different.
+                $selecthtml .= html_writer::start_tag('img', array('src' => $CFG->wwwroot . '/theme/' . $this->themename . '/pix/' . $this->imageprefix . '-' . $key . '.png', 'style' => 'width: ' . $this->imagewidth . 'px; height: ' . $this->imageheight . 'px', 'class' => $this->themename . $this->settingname . 'image-' . $index, $this->themename . $this->settingname => $key, 'title' => $value)); // Cannot use pix_url as theme might be different.
                 $selecthtml .= html_writer::end_tag('img');
                 $selecthtml .= html_writer::end_tag('li');
                 // the string cast is needed because key may be integer - 0 is equal to most strings!
@@ -190,7 +193,7 @@ class admin_setting_sliderselect extends admin_setting {
             $selecthtml .= html_writer::end_tag('div');
             // Helper to get bxslider css:
             $selecthtml .= html_writer::start_tag('div', array('id' => $this->themename . $this->settingname . 'wwwroot', 'style' => 'display:none;', 'wwwroot' => $CFG->wwwroot, 'startslide' => $startslide, 'width' => $this->imagewidth));
-            $selecthtml .= html_writer::end_tag('div');  // Needed but cannot spot why to put the description outside of form-setting.
+            $selecthtml .= html_writer::end_tag('div');
         }
         return array($selecthtml, $warning);
     }

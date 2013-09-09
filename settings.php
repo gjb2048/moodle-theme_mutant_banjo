@@ -46,29 +46,43 @@ if ($ADMIN->fulltree) {
         'g' => get_string('red', 'theme_mutant_banjo')
     );
     $setting = new admin_setting_sliderselect($name, $title, $description, $default, $choices, $noslidermode,
-                    'javascript', 460, 257, 'mutant_banjo', 'colourswatch');
+                    'javascript', 460, 257, 'mutant_banjo', 'colourswatch', 'colourswatch');
     $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($setting);
 
     // Font slider...
     $noslidermode = false;
-    $name = 'theme_mutant_banjo/font';
-    $title = get_string('font', 'theme_mutant_banjo');
-    $description = get_string('font_desc', 'theme_mutant_banjo');
-    $default = 'BPreplay';
+    $name = 'theme_mutant_banjo/fontbody';
+    $title = get_string('fontbody', 'theme_mutant_banjo');
+    $description = get_string('fontbody_desc', 'theme_mutant_banjo');
+    $default = 'Cabin';
     $choices = array(// Note: Key must match filename without .otf.
+        'Bellota' => get_string('bellota', 'theme_mutant_banjo'),
         'BPreplay' => get_string('bpreplay', 'theme_mutant_banjo'),
         'Cabin' => get_string('cabin', 'theme_mutant_banjo'),
         'CabinSketch' => get_string('cabinsketch', 'theme_mutant_banjo'),
+        'HennyPenny' => get_string('hennypenny', 'theme_mutant_banjo'),
         'Quattrocento' => get_string('quattrocento', 'theme_mutant_banjo'),
         'QuattrocentoSans' => get_string('quattrocentosans', 'theme_mutant_banjo'),
         'QuicksandBook' => get_string('quicksandbook', 'theme_mutant_banjo'),
         'ShortStack' => get_string('shortstack', 'theme_mutant_banjo'),
-        'SourceCodePro' => get_string('sourcecodepro', 'theme_mutant_banjo')
+        'SourceCodePro' => get_string('sourcecodepro', 'theme_mutant_banjo'),
+        'VarelaRound' => get_string('varelaround', 'theme_mutant_banjo')
     );
     //$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $setting = new admin_setting_sliderselect($name, $title, $description, $default, $choices, $noslidermode,
-                    'javascript', 500, 200, 'mutant_banjo', 'font');
+                    'javascript', 500, 200, 'mutant_banjo', 'fontbody', 'font');
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $settings->add($setting);
+
+    $noslidermode = false;
+    $name = 'theme_mutant_banjo/fontheading';
+    $title = get_string('fontheading', 'theme_mutant_banjo');
+    $description = get_string('fontheading_desc', 'theme_mutant_banjo');
+    $default = 'VarelaRound';
+    //$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $setting = new admin_setting_sliderselect($name, $title, $description, $default, $choices, $noslidermode,
+                    'javascript', 500, 200, 'mutant_banjo', 'fontheading', 'font');
     $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($setting);
 

@@ -30,13 +30,19 @@ function theme_mutant_banjo_process_css($css, $theme) {
     $logo = $theme->setting_file_url('logo', 'logo');
     $css = theme_mutant_banjo_set_logo($css, $logo);
 
-    // Set the font.
-    if (!empty($theme->settings->font)) {
-        $fontcss = $theme->settings->font;
+    // Set the fonts.
+    if (!empty($theme->settings->fontbody)) {
+        $fontcss = $theme->settings->fontbody;
     } else {
         $fontcss = null;
     }
-    $css = theme_mutant_banjo_set_font($css, $fontcss);
+    $css = theme_mutant_banjo_set_font($css, $fontcss, 'fontbody');
+    if (!empty($theme->settings->fontheading)) {
+        $fontcss = $theme->settings->fontheading;
+    } else {
+        $fontcss = null;
+    }
+    $css = theme_mutant_banjo_set_font($css, $fontcss, 'fontheading');
 
     // Set custom CSS.
     if (!empty($theme->settings->customcss)) {
@@ -62,9 +68,9 @@ function theme_mutant_banjo_set_logo($css, $logo) {
     return $css;
 }
 
-function theme_mutant_banjo_set_font($css, $fontcss) {
+function theme_mutant_banjo_set_font($css, $fontcss, $fontsetting) {
     global $CFG;
-    $tag = '[[setting:font]]';
+    $tag = '[[setting:'.$fontsetting.']]';
     $css = str_replace($tag, $fontcss, $css);
     $tag = '[[setting:fontwww]]';
     //$css = str_replace($tag, $CFG->wwwroot . '/theme/mutant_banjo/style/font/', $css);

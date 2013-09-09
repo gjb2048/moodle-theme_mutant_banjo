@@ -28,8 +28,15 @@
 @charset "UTF-8";
 
 @font-face {
-    font-family: 'MoodleTheme'; 
+    font-family: 'MutantBanjoBody'; 
     font-weight: normal;
     font-style: normal;
-    src: url('[[setting:fontwww]][[setting:font]].otf');
+    src: url('[[setting:fontwww]][[setting:fontbody]].otf');
+}
+
+@font-face {
+    font-family: 'MutantBanjoHeading'; 
+    font-weight: normal;
+    font-style: normal;
+    src: url('[[setting:fontwww]][[setting:fontheading]].otf');
 }

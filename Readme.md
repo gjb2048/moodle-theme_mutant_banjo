@@ -4,10 +4,30 @@ Mutant Banjo theme with swatch and font selection.
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2013050200.00 release 2.5beta+ (Build: 20130502) and above until the next release.
+This version works with Moodle version 2013051400.05 release 2.5 (Build: 20130614) and above until the next release.
 
-NOTE: This is a pre-release Moodle 2.5 Beta version that must NOT be used on production servers.  It is subject to change
-at any time without notice.
+It is currently in 'BETA' so must NOT be used on a production server.  To progress to 'STABLE' I need feedback from
+you that everything is ok.
+
+Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
+'docs.moodle.org/25/en/Installing_Moodle'.
+
+Free Software
+=============
+Mutant Banjo is 'free' software under the terms of the GNU GPLv3 License, please see 'COPYING.txt'.
+
+It can be obtained for free from:
+https://github.com/gjb2048/moodle-theme_mutant_banjo/releases
+
+You have all the rights granted to you by the GPLv3 license.  If you are unsure about anything, then the
+FAQ - http://www.gnu.org/licenses/gpl-faq.html - is a good place to look.
+
+If you reuse any of the code then I kindly ask that you make reference to me using the web and Moodle profiles
+at the bottom.
+
+If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
+https://github.com/gjb2048/moodle-theme_mutant_banjo and doing a 'Pull Request' so that the rest of the
+Moodle community benefits.
 
 Installation
 ============
@@ -54,8 +74,27 @@ It is essential that you provide as much information as possible, the critical i
 version.php file.  Other version information such as specific Moodle version, theme name and version also helps.  A screen shot
 can be really useful in visualising the issue along with any files you consider to be relevant.
 
+Known Issues
+============
+1.  Because of the way the font setting jQuery in YUI code has to operate by using a YUI contained module and not the core jQuery
+    incorporation mechanism (because it has to work in the settings when the theme is not the current and therefore the current
+    theme may not be using jQuery) only standard theme location support is provided.  If you set '$CFG->themedir' in the
+    'config.php' file then this will NOT work.  This is not a 'bug' as such because the theme is not broken, it's just that
+    'feature' is unsupported.  It is my intent to at some point convert this code to a YUI Module with greater flexibility and use
+    the 'pluginfile.php' file serving mechanism to dispatch the 'jquery.bxslider.css' file etc.  The actuall font serving code
+    should already be '$CFG->themedir' ready.
+
+Future Improvements
+===================
+1.  Convert slider setting jQuery in YUI code to YUI Modules and add a constructor so that the current set of files can be reduced
+    down to one and remove the need for jQuery to extract initialisation information from the mark-up.
+
 Version Information
 ===================
+9th September 2013 - Version 2.5.0.4 - Beta
+  1.  Separated out font setting to be for one for headings and another body text.
+  2.  Updated CSS in line with current Bootstrapbase 'less' changes.
+
 26th August 2013 - Version 2.5.0.3 - Beta
   1.  Updated font serving, blocks, layout and renderer code from Shoelace.
   2.  Updated BX Slider to 4.1.1.
@@ -75,6 +114,6 @@ And again to Mary Evans for the 'Clean' theme.
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 26th August 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 9th September 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

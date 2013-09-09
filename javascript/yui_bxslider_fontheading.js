@@ -25,7 +25,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
-/*                     fullpath: M.cfg.wwwroot + '/theme/mutant_banjo/javascript/jquery-1.8.2.min.js' */
 YUI.applyConfig({
     groups: {
         'jquery': {
@@ -44,16 +43,16 @@ YUI.applyConfig({
     }
 });
 YUI().use('jquery-bxslider', function(Y) {
-    var wwwroot = $('div #mutant_banjofontwwwroot').attr('wwwroot');
+    var wwwroot = $('div #mutant_banjofontheadingwwwroot').attr('wwwroot');
     $('head').append('<link rel="stylesheet" href="'+wwwroot+'/theme/mutant_banjo/javascript/jquery.bxslider/jquery.bxslider.css" type="text/css" />');
-    $('#admin-font .form-description').css('margin: 1.5em 0 0 14.25em;');
+    $('#admin-fontheading .form-description').css('margin: 1.5em 0 0 14.25em;');
     $(document).ready(function(){
-        var startslide = $('div #mutant_banjofontwwwroot').attr('startslide');
-        var width = $('div #mutant_banjofontwwwroot').attr('width');
-        $('#font-bxslider').bxSlider({
+        var startslide = $('div #mutant_banjofontheadingwwwroot').attr('startslide');
+        var width = $('div #mutant_banjofontheadingwwwroot').attr('width');
+        $('#fontheading-bxslider').bxSlider({
             onSlideAfter: function($slideElement, oldIndex, newIndex){
-                var value = $('.mutant_banjofontimage-'+parseInt(newIndex)).attr('mutant_banjofont');  // When slide 0 in bxslider get '01' for newIndex when using right arrow in 4.0 - check for 4.1.
-                $('.mutant_banjofontinput').attr('value', value);
+                var value = $('.mutant_banjofontheadingimage-'+parseInt(newIndex)).attr('mutant_banjofontheading');  // When slide 0 in bxslider get '01' for newIndex when using right arrow in 4.0 - check for 4.1.
+                $('.mutant_banjofontheadinginput').attr('value', value);
             },
             startSlide: startslide,
             captions: true,
