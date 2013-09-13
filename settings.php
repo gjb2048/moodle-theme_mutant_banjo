@@ -43,7 +43,19 @@ if ($ADMIN->fulltree) {
         'd' => get_string('pink', 'theme_mutant_banjo'),
         'e' => get_string('yellow', 'theme_mutant_banjo'),
         'f' => get_string('purple', 'theme_mutant_banjo'),
-        'g' => get_string('red', 'theme_mutant_banjo')
+        'g' => get_string('red', 'theme_mutant_banjo'),
+        'amelia' => get_string('amelia', 'theme_mutant_banjo'),
+        'cerulean' => get_string('cerulean', 'theme_mutant_banjo'),
+        'cosmo' => get_string('cosmo', 'theme_mutant_banjo'),
+        'cyborg' => get_string('cyborg', 'theme_mutant_banjo'),
+        'flatly' => get_string('flatly', 'theme_mutant_banjo'),
+        'journal' => get_string('journal', 'theme_mutant_banjo'),
+        'readable' => get_string('readable', 'theme_mutant_banjo'),
+        'simplex' => get_string('simplex', 'theme_mutant_banjo'),
+        'slate' => get_string('slate', 'theme_mutant_banjo'),
+        'spacelab' => get_string('spacelab', 'theme_mutant_banjo'),
+        'superhero' => get_string('superhero', 'theme_mutant_banjo'),
+        'united' => get_string('united', 'theme_mutant_banjo')
     );
     $setting = new admin_setting_sliderselect($name, $title, $description, $default, $choices, $noslidermode,
                     'javascript', 460, 261, 'mutant_banjo', 'colourswatch', 'colourswatch');
