@@ -32,7 +32,7 @@ YUI.applyConfig({
             combine: true,
             modules: {
                 'jquery': {
-                    fullpath: M.cfg.wwwroot + '/lib/jquery/jquery-1.9.1.min.js'
+                    fullpath: M.cfg.wwwroot + '/lib/jquery/jquery-1.10.2.min.js'
                 },
                 'jquery-bxslider': {
                     fullpath: M.cfg.wwwroot + '/theme/mutant_banjo/javascript/jquery.bxslider/jquery.bxslider.min.js',
