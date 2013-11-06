@@ -93,6 +93,9 @@ Future Improvements
 
 Version Information
 ===================
+6th November 2013 Version 2.6.0.1
+  1.  Initial BETA code for Moodle 2.6.
+
 9th September 2013 - Version 2.5.0.4 - Beta
   1.  Separated out font setting to be for one for headings and another body text.
   2.  Updated CSS in line with current Bootstrapbase 'less' changes.
@@ -116,6 +119,6 @@ And again to Mary Evans for the 'Clean' theme.
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 9th September 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
