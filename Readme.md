@@ -93,8 +93,10 @@ Future Improvements
 
 Version Information
 ===================
-6th November 2013 Version 2.6.0.1
+7th November 2013 Version 2.6.0.1
   1.  Initial BETA code for Moodle 2.6.
+  2.  Added the 'less' folder containing the files required to alter / recompile the css.  Instructions
+      in the 'less/Readme_less.md' file.
 
 9th September 2013 - Version 2.5.0.4 - Beta
   1.  Separated out font setting to be for one for headings and another body text.
