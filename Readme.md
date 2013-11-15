@@ -4,13 +4,14 @@ Mutant Banjo theme with swatch and font selection.
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2013051400.05 release 2.5 (Build: 20130614) and above until the next release.
+This version works with Moodle version 2013111500.01 release 2.6rc1 (Build: 20131115) and above within the 2.6 branch until the
+next release.
 
 Mutant Banjo is currently in 'BETA' so must NOT be used on a production server.  To progress to 'STABLE' I need feedback from
 you that everything is ok.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
-'docs.moodle.org/25/en/Installing_Moodle'.
+'docs.moodle.org/26/en/Installing_Moodle'.
 
 Free Software
 =============
@@ -89,11 +90,11 @@ Future Improvements
 1.  Convert slider setting jQuery in YUI code to YUI Modules and add a constructor so that the current set of files can be reduced
     down to one and remove the need for jQuery to extract initialisation information from the mark-up.
 2.  Add more fonts.
-3.  Have a footer block area as I'm currently experimenting with in the Shoelace theme.
+3.  Have a footer block area as in the Shoelace theme.
 
 Version Information
 ===================
-7th November 2013 Version 2.6.0.1
+15th November 2013 Version 2.6.0.1
   1.  Initial BETA code for Moodle 2.6.
   2.  Added the 'less' folder containing the files required to alter / recompile the css.  Instructions
       in the 'less/Readme_less.md' file.

@@ -27,8 +27,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2013111100;
-$plugin->requires  = 2013110600.00; // 2.6beta+ (Build: 20131106).
+$plugin->version   = 2013111500;
+$plugin->requires  = 2013111500.01; // 2.6rc1 (Build: 20131115).
 $plugin->component = 'theme_mutant_banjo';
 $plugin->maturity = MATURITY_BETA;
 $plugin->release = '2.6.0.1';
