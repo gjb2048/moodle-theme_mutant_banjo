@@ -69,7 +69,7 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
             'i/restore' => 'cloud-upload',
             'i/return' => 'repeat',
             'i/roles' => 'user',
-            'i/settings' => 'cog',
+            'i/settings' => 'cogs',
             'i/show' => 'eye-slash',
             'i/switchrole' => 'random',
             'i/user' => 'user',
