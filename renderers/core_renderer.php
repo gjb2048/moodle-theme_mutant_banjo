@@ -34,9 +34,12 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
     */
      
      protected function render_pix_icon(pix_icon $icon) {
-        if (self::replace_moodle_icon($icon->pix) !== false && $icon->attributes['alt'] === '' /* && $icon->attributes['title'] === '' */) {
-            return self::replace_moodle_icon($icon->pix);
+        $ouricon = self::replace_moodle_icon($icon->pix);
+        if ($ouricon !== false /* && $icon->attributes['alt'] === '' /* && $icon->attributes['title'] === '' */) {
+            //error_log('replace_moodle_icon(pix_icon '.$icon->pix.')');
+            return $ouricon;
         } else {
+            //error_log('render_pix_icon(pix_icon '.$icon->pix.')');
             return parent::render_pix_icon($icon);
         }
     }
@@ -49,11 +52,13 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
             'generate' => 'gift',
             'i/backup' => 'cloud-download',
             'i/checkpermissions' => 'user',
+            'i/dragdrop' => 'arrows-alt',
             'i/edit' => 'pencil',
             'i/filter' => 'filter',
             'i/grades' => 'table',
-            'i/group' => 'group',
-            'i/hide' => 'eye-open',
+            'i/group' => 'user',
+            'i/groupn' => 'users',
+            'i/hide' => 'eye',
             'i/import' => 'upload',
             'i/move_2d' => 'move',
             'i/navigationitem' => 'circle',
@@ -64,13 +69,18 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
             'i/restore' => 'cloud-upload',
             'i/return' => 'repeat',
             'i/roles' => 'user',
-            'i/settings' => 'cogs',
-            'i/show' => 'eye-close',
+            'i/settings' => 'cog',
+            'i/show' => 'eye-slash',
             'i/switchrole' => 'random',
             'i/user' => 'user',
             'i/users' => 'user',
-            't/right' => 'arrow-right',
+            't/add' => 'plus',
+            't/delete' => 'times',
+            't/edit' => 'cog',
+            't/hide' => 'eye',
             't/left' => 'arrow-left',
+            't/move' => 'arrows-alt',
+            't/right' => 'arrow-right'
         );
         if (isset($icons[$name])) {
             return "<i class=\"fa fa-$icons[$name]\" id=\"icon\"></i>";

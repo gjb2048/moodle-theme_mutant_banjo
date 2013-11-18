@@ -20,19 +20,6 @@
 /* @end */
 
 /* @group Header */
-
-#page-header {
-    padding: 12px 0px 0px 0px;
-    border-bottom: 1px solid #DDD;
-}
-
-h2.main,
-#pageheading {
-    font-size: 1.4em;
-    line-height: 35px;
-    border-bottom: 1px solid #e1e1e1;
-}
-
 a.logo {
     display: block;
     float: left;
@@ -90,20 +77,8 @@ h2#subtitle {
 /* @group Navbar
  */
 
-.breadcrumb {
-    padding: 0px;
-    text-transform: uppercase;
-    font-size: .9em;
-    background: transparent;
-    margin: 0px;
-}
-
 .breadcrumb-button {
     margin-top: -4px;
-}
-
-ul.breadcrumb span.divider {
-    display: none;
 }
 
 ul.breadcrumb li:after { 
@@ -144,10 +119,6 @@ ul.breadcrumb li:last-child:after {
 
 /* @group Course
  */
-
-.course-content ul li.section.main {
-    border-bottom: 0px none;
-}
 
 div.mdl-align.title {
     text-align: left;
