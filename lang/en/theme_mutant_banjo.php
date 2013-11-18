@@ -95,3 +95,10 @@ $string['pluginname'] = 'Mutant Banjo';
 $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
 
+/* Font Awesome bits */
+$string['mycourses'] = 'My Courses';
+$string['myunits'] = 'My Units';
+$string['mymodules'] = 'My Modules';
+$string['myclasses'] = 'My Classes';
+$string['noenrolments'] = 'You have no current enrolments';
+

@@ -27,6 +27,58 @@
 
 class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer {
 
+   /*
+    * This code replaces the icons in the Admin block with
+    * FontAwesome variants where available.
+    * Written by J Ridden
+    */
+     
+     protected function render_pix_icon(pix_icon $icon) {
+        if (self::replace_moodle_icon($icon->pix) !== false && $icon->attributes['alt'] === '' /* && $icon->attributes['title'] === '' */) {
+            return self::replace_moodle_icon($icon->pix);
+        } else {
+            return parent::render_pix_icon($icon);
+        }
+    }
+    private static function replace_moodle_icon($name) {
+        $icons = array(
+            'add' => 'plus',
+            'book' => 'book',
+            'chapter' => 'file',
+            'docs' => 'question-sign',
+            'generate' => 'gift',
+            'i/backup' => 'cloud-download',
+            'i/checkpermissions' => 'user',
+            'i/edit' => 'pencil',
+            'i/filter' => 'filter',
+            'i/grades' => 'table',
+            'i/group' => 'group',
+            'i/hide' => 'eye-open',
+            'i/import' => 'upload',
+            'i/move_2d' => 'move',
+            'i/navigationitem' => 'circle',
+            'i/outcomes' => 'magic',
+            'i/publish' => 'globe',
+            'i/reload' => 'refresh',
+            'i/report' => 'list-alt',
+            'i/restore' => 'cloud-upload',
+            'i/return' => 'repeat',
+            'i/roles' => 'user',
+            'i/settings' => 'cogs',
+            'i/show' => 'eye-close',
+            'i/switchrole' => 'random',
+            'i/user' => 'user',
+            'i/users' => 'user',
+            't/right' => 'arrow-right',
+            't/left' => 'arrow-left',
+        );
+        if (isset($icons[$name])) {
+            return "<i class=\"fa fa-$icons[$name]\" id=\"icon\"></i>";
+        } else {
+            return false;
+        }
+    }
+
     /*
      * This renders the navbar.
      * Uses bootstrap compatible html.
@@ -34,11 +86,11 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
     public function navbar() {
         $items = $this->page->navbar->get_items();
         if (right_to_left()) {
-            $dividericon = 'icon-chevron-left';
+            $dividericon = 'fa-chevron-left';
         } else {
-            $dividericon = 'icon-chevron-right';
+            $dividericon = 'fa-chevron-right';
         }
-        $divider = html_writer::tag('span', html_writer::start_tag('i', array('class' => $dividericon.' icon-black')).
+        $divider = html_writer::tag('span', html_writer::start_tag('i', array('class' => $dividericon.' fa fa-fw')).
                html_writer::end_tag('i') , array('class' => 'divider'));
         $breadcrumbs = array();
         foreach ($items as $item) {
@@ -55,6 +107,7 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
      * Returns HTML to display a "Turn editing on/off" button in a form.
      *
      * @param moodle_url $url The URL + params to send through when clicking the button
+     * Written by G J Barnard & J Ridden
      * @return string HTML the button
      */
     public function edit_button(moodle_url $url) {
@@ -63,14 +116,14 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
             $url->param('edit', 'off');
             $btn = 'btn-danger';
             $title = get_string('turneditingoff');
-            $icon = 'icon-off';
+            $icon = 'fa-power-off';
         } else {
             $url->param('edit', 'on');
             $btn = 'btn-success';
             $title = get_string('turneditingon');
-            $icon = 'icon-edit';
+            $icon = 'fa-edit';
         }
-        return html_writer::tag('a', html_writer::start_tag('i', array('class' => $icon.' icon-white')).
+        return html_writer::tag('a', html_writer::start_tag('i', array('class' => $icon.' fa fa-fw')).
                html_writer::end_tag('i'), array('href' => $url, 'class' => 'btn '.$btn, 'title' => $title));
     }
 
