@@ -51,6 +51,7 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
             'docs' => 'question-sign',
             'generate' => 'gift',
             'i/backup' => 'cloud-download',
+            'i/course' => 'bookmark-o',
             'i/checkpermissions' => 'user',
             'i/dragdrop' => 'arrows-alt',
             'i/edit' => 'pencil',
@@ -60,6 +61,7 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
             'i/groupn' => 'users',
             'i/hide' => 'eye',
             'i/import' => 'upload',
+            'i/permissions' => 'key',
             'i/move_2d' => 'move',
             'i/navigationitem' => 'circle',
             'i/outcomes' => 'magic',
@@ -73,17 +75,21 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
             'i/show' => 'eye-slash',
             'i/switchrole' => 'random',
             'i/user' => 'user',
-            'i/users' => 'user',
+            'i/users' => 'users',
+            'i/withsubcat' => 'indent',
             't/add' => 'plus',
+            't/assignroles' => 'user',
+            't/cohort' => 'users',
             't/delete' => 'times',
             't/edit' => 'cog',
+            't/edit_menu' => 'cogs',
             't/hide' => 'eye',
             't/left' => 'arrow-left',
             't/move' => 'arrows-alt',
             't/right' => 'arrow-right'
         );
         if (isset($icons[$name])) {
-            return "<i class=\"fa fa-$icons[$name]\" id=\"icon\"></i>";
+            return "<i aria-hidden=\"true\" class=\"fa fa-$icons[$name]\" id=\"icon\"></i>";
         } else {
             return false;
         }
