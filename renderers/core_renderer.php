@@ -35,6 +35,7 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
      
      protected function render_pix_icon(pix_icon $icon) {
         $ouricon = self::replace_moodle_icon($icon->pix);
+        //error_log('render_pix_icon(pix_icon '.print_r($icon, true).')');
         if ($ouricon !== false /* && $icon->attributes['alt'] === '' /* && $icon->attributes['title'] === '' */) {
             //error_log('replace_moodle_icon(pix_icon '.$icon->pix.')');
             return $ouricon;
@@ -50,11 +51,13 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
             'chapter' => 'file',
             'docs' => 'question-sign',
             'generate' => 'gift',
+            'i/assignroles' => 'users',
             'i/backup' => 'cloud-download',
             'i/course' => 'bookmark-o',
             'i/checkpermissions' => 'user',
             'i/dragdrop' => 'arrows-alt',
             'i/edit' => 'pencil',
+            'i/enrolusers' => 'users',
             'i/filter' => 'filter',
             'i/grades' => 'table',
             'i/group' => 'user',
