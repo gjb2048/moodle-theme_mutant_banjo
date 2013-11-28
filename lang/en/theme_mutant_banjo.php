@@ -102,3 +102,18 @@ $string['mymodules'] = 'My Modules';
 $string['myclasses'] = 'My Classes';
 $string['noenrolments'] = 'You have no current enrolments';
 
+/* General settings */
+$string['generalsettings'] = 'General settings';
+
+/* Social Networks */
+$string['socialheading'] = 'Social networking';
+$string['socialheadingsub'] = 'Gather followers with social networking';
+$string['socialdesc'] = 'Provide direct links to your social networks.  These will appear in the footer of every page.';
+$string['socialnetworks'] = 'Social networks';
+$string['nosociallinks'] = 'Number of social network links';
+$string['nosociallinks_desc'] = 'Number of social network links you want to add.';
+$string['socialnetworklink'] = 'Social network link ';
+$string['socialnetworklinkdesc'] = 'Social network link number ';
+$string['socialnetworkicon'] = 'Social network icon ';
+$string['socialnetworkicondesc'] = 'Social network icon number ';
+

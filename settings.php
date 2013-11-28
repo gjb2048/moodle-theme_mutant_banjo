@@ -30,6 +30,10 @@ defined('MOODLE_INTERNAL') || die;
 if ($ADMIN->fulltree) {
     require_once($CFG->dirroot . '/theme/mutant_banjo/admin_setting_sliderselect.php');
 
+    $ADMIN->add('themes', new admin_category('theme_mutant_banjo', 'Mutant Banjo'));
+
+    $generalsettings = new admin_settingpage('theme_mutant_banjo_general',  get_string('generalsettings', 'theme_mutant_banjo'));
+
     // Swatch slider...
     $noslidermode = false;
     $name = 'theme_mutant_banjo/colourswatch';
@@ -48,7 +52,7 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_sliderselect($name, $title, $description, $default, $choices, $noslidermode,
                     'javascript', 460, 261, 'mutant_banjo', 'colourswatch', 'colourswatch');
     $setting->set_updatedcallback('theme_reset_all_caches');
-    $settings->add($setting);
+    $generalsettings->add($setting);
 
     // Font slider...
     $noslidermode = false;
@@ -73,7 +77,7 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_sliderselect($name, $title, $description, $default, $choices, $noslidermode,
                     'javascript', 500, 200, 'mutant_banjo', 'fontbody', 'font');
     $setting->set_updatedcallback('theme_reset_all_caches');
-    $settings->add($setting);
+    $generalsettings->add($setting);
 
     $noslidermode = false;
     $name = 'theme_mutant_banjo/fontheading';
@@ -84,14 +88,14 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_sliderselect($name, $title, $description, $default, $choices, $noslidermode,
                     'javascript', 500, 200, 'mutant_banjo', 'fontheading', 'font');
     $setting->set_updatedcallback('theme_reset_all_caches');
-    $settings->add($setting);
+    $generalsettings->add($setting);
 
     // Invert Navbar to dark background.
     $name = 'theme_mutant_banjo/invert';
     $title = get_string('invert', 'theme_mutant_banjo');
     $description = get_string('invertdesc', 'theme_mutant_banjo');
     $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
-    $settings->add($setting);
+    $generalsettings->add($setting);
 
     // Logo file setting.
     $name = 'theme_mutant_banjo/logo';
@@ -99,7 +103,37 @@ if ($ADMIN->fulltree) {
     $description = get_string('logodesc', 'theme_mutant_banjo');
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'logo');
     $setting->set_updatedcallback('theme_reset_all_caches');
-    $settings->add($setting);
+    $generalsettings->add($setting);
+
+    /* Number of social network links */
+    $name = 'theme_mutant_banjo/nosociallinks';
+    $title = get_string('nosociallinks', 'theme_mutant_banjo');
+    $description = get_string('nosociallinks_desc', 'theme_mutant_banjo');
+    $default = 2;
+    $choices = array(
+        0 => '0',
+        1 => '1',
+        2 => '2',
+        3 => '3',
+        4 => '4',
+        5 => '5',
+        6 => '6',
+        7 => '7',
+        8 => '8',
+        9 => '9',
+        10 => '10',
+        11 => '11',
+        12 => '12',
+        13 => '13',
+        14 => '14',
+        15 => '15',
+        16 => '16'
+    );
+    $generalsettings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    $socialsettings = new admin_settingpage('theme_mutant_banjo_social', get_string('socialheading', 'theme_mutant_banjo'));
+    $socialsettings->add(new admin_setting_heading('theme_mutant_banjo_social', get_string('socialheadingsub', 'theme_mutant_banjo'),
+            format_text(get_string('socialdesc' , 'theme_mutant_banjo'), FORMAT_MARKDOWN)));
 
     // Custom CSS file.
     $name = 'theme_mutant_banjo/customcss';
@@ -107,7 +141,7 @@ if ($ADMIN->fulltree) {
     $description = get_string('customcssdesc', 'theme_mutant_banjo');
     $default = '';
     $setting = new admin_setting_configtextarea($name, $title, $description, $default);
-    $settings->add($setting);
+    $generalsettings->add($setting);
 
     // Footnote setting.
     $name = 'theme_mutant_banjo/footnote';
@@ -115,5 +149,47 @@ if ($ADMIN->fulltree) {
     $description = get_string('footnotedesc', 'theme_mutant_banjo');
     $default = '';
     $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
-    $settings->add($setting);
+    $generalsettings->add($setting);
+
+    $ADMIN->add('theme_mutant_banjo', $generalsettings);
+
+    $nosociallinks = get_config('theme_mutant_banjo', 'nosociallinks');
+    for ($i = 1; $i <= $nosociallinks; $i++) {
+        // Social url setting.
+        $name = 'theme_mutant_banjo/social'.$i;
+        $title = get_string('socialnetworklink', 'theme_mutant_banjo').$i;
+        $description = get_string('socialnetworklinkdesc', 'theme_mutant_banjo').$i;
+        $default = '';
+        $setting = new admin_setting_configtext($name, $title, $description, $default);
+        $setting->set_updatedcallback('theme_reset_all_caches');
+        $socialsettings->add($setting);
+
+        // Social icon setting.
+        $name = 'theme_mutant_banjo/socialicon'.$i;
+        $title = get_string('socialnetworkicon', 'theme_mutant_banjo').$i;
+        $description = get_string('socialnetworkicondesc', 'theme_mutant_banjo').$i;
+        $default = 'globe';
+        $choices = array(
+            'dropbox' => 'Dropbox',
+            'facebook-square' => 'Facebook',
+            'flickr' => 'Flickr',
+            'github' => 'Github',
+            'google-plus-square' => 'Google Plus',
+            'instagram' => 'Instagram',
+            'linkedin-square' => 'Linkedin',
+            'pinterest-square' => 'Pinterest',
+            'skype' => 'Skype',
+            'tumblr-square' => 'Tumblr',
+            'twitter-square' => 'Twitter',
+            'users' => 'Unlisted',
+            'vimeo-square' => 'Vimeo',
+            'vk' => 'Vk',
+            'globe' => 'Website',
+            'youtube-square' => 'YouTube'
+        );
+        $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+        $setting->set_updatedcallback('theme_reset_all_caches');
+        $socialsettings->add($setting);
+    }
+    $ADMIN->add('theme_mutant_banjo', $socialsettings);
 }

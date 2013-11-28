@@ -6,11 +6,11 @@
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url('[[setting:fontwww]]fontawesome-webfont.eot?v=4.0.3');
-  src: url('[[setting:fontwww]]fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'),
-       url('[[setting:fontwww]]fontawesome-webfont.woff?v=4.0.3') format('woff'),
-       url('[[setting:fontwww]]fontawesome-webfont.ttf?v=4.0.3') format('truetype'),
-       url('[[setting:fontwww]]fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+  src: url('[[font:theme|fontawesome-webfont.eot]]');
+  src: url('[[font:theme|fontawesome-webfont.eot]]') format('embedded-opentype'),
+       url('[[font:theme|fontawesome-webfont.woff]]') format('woff'),
+       url('[[font:theme|fontawesome-webfont.ttf]]') format('truetype'),
+       url('[[font:theme|fontawesome-webfont.svg]]#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }

@@ -119,6 +119,7 @@ echo $OUTPUT->doctype() ?>
         <div id="course-footer"><?php echo $OUTPUT->course_footer(); ?></div>
         <p class="helplink"><?php echo $OUTPUT->page_doc_link(); ?></p>
         <?php
+        require_once(dirname(__FILE__).'/tiles/social.php');
         echo $html->footnote;
         echo $OUTPUT->login_info();
         echo $OUTPUT->home_link();

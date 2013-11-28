@@ -110,6 +110,7 @@ echo $OUTPUT->doctype() ?>
     <footer id="page-footer">
         <p class="helplink"><?php echo $OUTPUT->page_doc_link(); ?></p>
         <?php
+        require_once(dirname(__FILE__).'/tiles/social.php');
         echo $html->footnote;
         echo $OUTPUT->login_info();
         echo $OUTPUT->home_link();

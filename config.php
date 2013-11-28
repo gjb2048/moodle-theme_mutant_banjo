@@ -29,7 +29,7 @@ $THEME->name = 'mutant_banjo';
 
 $THEME->doctype = 'html5';
 $THEME->parents = array('bootstrapbase');
-$THEME->sheets = array('font', 'moodle-'.$THEME->settings->colourswatch, 'editor-'.$THEME->settings->colourswatch, 'custom', 'font-awesome.min', 'font-awesome-moodle');
+$THEME->sheets = array('font', 'moodle-'.$THEME->settings->colourswatch, 'editor-'.$THEME->settings->colourswatch, 'custom', 'font-awesome', 'social');
 $THEME->supportscssoptimisation = false;
 $THEME->yuicssmodules = array();
 
