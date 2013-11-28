@@ -34,7 +34,7 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
     */
      
      protected function render_pix_icon(pix_icon $icon) {
-        $ouricon = self::replace_moodle_icon($icon->pix);
+        $ouricon = self::replace_moodle_icon($icon);
         //error_log('render_pix_icon(pix_icon '.print_r($icon, true).')');
         if ($ouricon !== false /* && $icon->attributes['alt'] === '' /* && $icon->attributes['title'] === '' */) {
             //error_log('replace_moodle_icon(pix_icon '.$icon->pix.')');
@@ -44,13 +44,14 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
             return parent::render_pix_icon($icon);
         }
     }
-    private static function replace_moodle_icon($name) {
+    private static function replace_moodle_icon($icon) {
         $icons = array(
             'add' => 'plus',
             'book' => 'book',
             'chapter' => 'file',
-            'docs' => 'question-sign',
+            'docs' => 'question-circle',
             'generate' => 'gift',
+            'help' => 'question-circle',
             'i/assignroles' => 'users',
             'i/backup' => 'cloud-download',
             'i/course' => 'bookmark-o',
@@ -79,6 +80,7 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
             'i/switchrole' => 'random',
             'i/user' => 'user',
             'i/users' => 'users',
+            'i/warning' => 'warning',
             'i/withsubcat' => 'indent',
             't/add' => 'plus',
             't/assignroles' => 'user',
@@ -89,10 +91,20 @@ class theme_mutant_banjo_core_renderer extends theme_bootstrapbase_core_renderer
             't/hide' => 'eye',
             't/left' => 'arrow-left',
             't/move' => 'arrows-alt',
-            't/right' => 'arrow-right'
+            't/right' => 'arrow-right',
+            't/switch_minus' => 'minus-square-o',
+            't/switch_plus' => 'plus-square-o'
         );
-        if (isset($icons[$name])) {
-            return "<i aria-hidden=\"true\" class=\"fa fa-$icons[$name]\" id=\"icon\"></i>";
+        if (isset($icons[$icon->pix])) {
+            $name = $icon->pix;
+            $small = strstr($icon->attributes['class'], 'smallicon') || strstr($icon->attributes['class'], 'iconsmall');
+            $o = "<i aria-hidden=\"true\" class=\"fa fa-$icons[$name]";
+            if (!$small) {
+                $o .= " fa-2x";
+                //error_log('replace_moodle_icon(pix_icon '.$icon->pix.' 2x)');
+            }
+            $o .= "\" id=\"icon\"></i>";
+            return $o;
         } else {
             return false;
         }
