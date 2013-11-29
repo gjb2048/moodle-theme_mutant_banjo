@@ -154,3 +154,8 @@ function theme_mutant_banjo_get_html_for_settings(renderer_base $output, moodle_
 
     return $return;
 }
+
+function theme_mutant_banjo_page_init(moodle_page $page) {
+    $page->requires->jquery();
+    $page->requires->jquery_plugin('carousel', 'theme_mutant_banjo'); 
+}
