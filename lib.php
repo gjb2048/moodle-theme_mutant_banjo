@@ -101,8 +101,8 @@ function theme_mutant_banjo_set_customcss($css, $customcss) {
 function theme_mutant_banjo_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
     if ($context->contextlevel == CONTEXT_SYSTEM) {
         if ($filearea === 'logo') {
-           $theme = theme_config::load('mutant_banjo');
-           return $theme->setting_file_serve('logo', $args, $forcedownload, $options);
+            $theme = theme_config::load('mutant_banjo');
+            return $theme->setting_file_serve('logo', $args, $forcedownload, $options);
         } else if ($filearea === 'font') {
             global $CFG;
             if (!empty($CFG->themedir)) {
@@ -114,6 +114,9 @@ function theme_mutant_banjo_pluginfile($course, $cm, $context, $filearea, $args,
             //send_file($thefontpath.$args[1], $args[1]);  // Mime type detection not working?
             // Note: Third parameter is normally 'default' which is the 'lifetime' of the file.  Here set lower for development purposes.
             send_file($thefontpath.$args[1], $args[1], 20 , 0, false, false, 'font/opentype');
+        } else if (substr($filearea, 0, 10) === 'slideimage') {
+            $theme = theme_config::load('mutant_banjo');
+            return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
         } else {
             send_file_not_found();
         }

@@ -131,9 +131,31 @@ if ($ADMIN->fulltree) {
     );
     $generalsettings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
-    $socialsettings = new admin_settingpage('theme_mutant_banjo_social', get_string('socialheading', 'theme_mutant_banjo'));
-    $socialsettings->add(new admin_setting_heading('theme_mutant_banjo_social', get_string('socialheadingsub', 'theme_mutant_banjo'),
-            format_text(get_string('socialdesc' , 'theme_mutant_banjo'), FORMAT_MARKDOWN)));
+    /* Number of carousel slides */
+    $name = 'theme_mutant_banjo/noslides';
+    $title = get_string('noslides', 'theme_mutant_banjo');
+    $description = get_string('noslides_desc', 'theme_mutant_banjo');
+    $default = 4;
+    $choices = array(
+        0 => '0',
+        1 => '1',
+        2 => '2',
+        3 => '3',
+        4 => '4',
+        5 => '5',
+        6 => '6',
+        7 => '7',
+        8 => '8',
+        9 => '9',
+        10 => '10',
+        11 => '11',
+        12 => '12',
+        13 => '13',
+        14 => '14',
+        15 => '15',
+        16 => '16'
+    );
+    $generalsettings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     // Custom CSS file.
     $name = 'theme_mutant_banjo/customcss';
@@ -153,12 +175,16 @@ if ($ADMIN->fulltree) {
 
     $ADMIN->add('theme_mutant_banjo', $generalsettings);
 
+    // Social links page....
+    $socialsettings = new admin_settingpage('theme_mutant_banjo_social', get_string('socialheading', 'theme_mutant_banjo'));
+    $socialsettings->add(new admin_setting_heading('theme_mutant_banjo_social', get_string('socialheadingsub', 'theme_mutant_banjo'),
+            format_text(get_string('socialdesc' , 'theme_mutant_banjo'), FORMAT_MARKDOWN)));
     $nosociallinks = get_config('theme_mutant_banjo', 'nosociallinks');
     for ($i = 1; $i <= $nosociallinks; $i++) {
         // Social url setting.
         $name = 'theme_mutant_banjo/social'.$i;
         $title = get_string('socialnetworklink', 'theme_mutant_banjo').$i;
-        $description = get_string('socialnetworklinkdesc', 'theme_mutant_banjo').$i;
+        $description = get_string('socialnetworklink_desc', 'theme_mutant_banjo').$i;
         $default = '';
         $setting = new admin_setting_configtext($name, $title, $description, $default);
         $setting->set_updatedcallback('theme_reset_all_caches');
@@ -167,7 +193,7 @@ if ($ADMIN->fulltree) {
         // Social icon setting.
         $name = 'theme_mutant_banjo/socialicon'.$i;
         $title = get_string('socialnetworkicon', 'theme_mutant_banjo').$i;
-        $description = get_string('socialnetworkicondesc', 'theme_mutant_banjo').$i;
+        $description = get_string('socialnetworkicon_desc', 'theme_mutant_banjo').$i;
         $default = 'globe';
         $choices = array(
             'dropbox' => 'Dropbox',
@@ -192,4 +218,54 @@ if ($ADMIN->fulltree) {
         $socialsettings->add($setting);
     }
     $ADMIN->add('theme_mutant_banjo', $socialsettings);
+
+    // Carousel....
+    $slidesettings = new admin_settingpage('theme_mutant_banjo_slides', get_string('slidesheading', 'theme_mutant_banjo'));
+    $slidesettings->add(new admin_setting_heading('theme_mutant_banjo_slides', get_string('slidesheadingsub', 'theme_mutant_banjo'),
+            format_text(get_string('slidesdesc' , 'theme_mutant_banjo'), FORMAT_MARKDOWN)));
+    $noslides = get_config('theme_mutant_banjo', 'noslides');
+    for ($i = 1; $i <= $noslides; $i++) {
+        // Title.
+        $name = 'theme_mutant_banjo/slidetitle'.$i;
+        $title = get_string('slidetitle', 'theme_mutant_banjo');
+        $description = get_string('slidetitle_desc', 'theme_mutant_banjo');
+        $setting = new admin_setting_configtext($name, $title, $description, '');
+        $default = '';
+        $setting->set_updatedcallback('theme_reset_all_caches');
+        $slidesettings->add($setting);
+
+        // Text.
+        $name = 'theme_mutant_banjo/slidetext'.$i;
+        $title = get_string('slidetext', 'theme_mutant_banjo');
+        $description = get_string('slidetext_desc', 'theme_mutant_banjo');
+        $default = '';
+        $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+        $slidesettings->add($setting);
+
+        // Image.
+        $name = 'theme_mutant_banjo/slideimage'.$i;
+        $title = get_string('slideimage', 'theme_mutant_banjo');
+        $description = get_string('slideimage_desc', 'theme_mutant_banjo');
+        $setting = new admin_setting_configstoredfile($name, $title, $description, 'slideimage'.$i);
+        $setting->set_updatedcallback('theme_reset_all_caches');
+        $slidesettings->add($setting);
+
+        // Caption.
+        $name = 'theme_mutant_banjo/slidecaption'.$i;
+        $title = get_string('slidecaption', 'theme_mutant_banjo');
+        $description = get_string('slidecaption_desc', 'theme_mutant_banjo');
+        $setting = new admin_setting_configtextarea($name, $title, $description, '');
+        $setting->set_updatedcallback('theme_reset_all_caches');
+        $slidesettings->add($setting);
+
+        // URL.
+        $name = 'theme_mutant_banjo/slideurl'.$i;
+        $title = get_string('slideurl', 'theme_mutant_banjo');
+        $description = get_string('slideurl_desc', 'theme_mutant_banjo');
+        $setting = new admin_setting_configtext($name, $title, $description, '', PARAM_URL);
+        $setting->set_updatedcallback('theme_reset_all_caches');
+        $slidesettings->add($setting);
+    }
+    $ADMIN->add('theme_mutant_banjo', $slidesettings);
+
 }

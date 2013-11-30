@@ -127,7 +127,7 @@ $THEME->layouts = array(
     // This must not have any blocks, and it is good idea if it does not have links to
     // other places - for example there should not be a home link in the footer...
     'maintenance' => array(
-        'file' => 'columns1.php',
+        'file' => 'maintenance.php',
         'regions' => array(),
         'options' => array('nofooter'=>true, 'nonavbar'=>true, 'nocoursefooter'=>true, 'nocourseheader'=>true),
     ),

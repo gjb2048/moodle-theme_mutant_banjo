@@ -23,40 +23,13 @@
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @author     Based on code originally written by Mary Evans, Bas Brands, Stuart Lamour and David Scotson.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-
  */
-
-// Get the HTML for the settings bits.
-$html = theme_mutant_banjo_get_html_for_settings($OUTPUT, $PAGE);
-
-$pre = 'side-pre';
-$post = 'side-post';
-if (right_to_left()) {
-    $regionbsid = 'region-bs-main-and-post';
-    // In RTL the sides are reversed, so swap the 'shoelaceblocks' method parameter....
-    $temp = $pre;
-    $pre = $post;
-    $post = $temp;
-} else {
-    $regionbsid = 'region-bs-main-and-pre';
-}
-
-$hassidepre = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('side-pre', $OUTPUT));
-$hassidepost = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('side-post', $OUTPUT));
-$contentclass = 'span8';
-$blockclass = 'span4';
-if (!($hassidepre AND $hassidepost)) {
-    // Two columns.
-    $contentclass = 'span9';
-    $blockclass = 'span3';
-}
 
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
 <head>
     <title><?php echo $OUTPUT->page_title(); ?></title>
     <link rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>" />
-    <meta name="description" content="<?php p(strip_tags(format_text($SITE->summary, FORMAT_HTML))) ?>" />
     <?php echo $OUTPUT->standard_head_html() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -65,11 +38,21 @@ echo $OUTPUT->doctype() ?>
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
-<header role="banner" class="navbar navbar-fixed-top<?php echo $html->navbarclass ?>">
+<?php
+    // If on desktop, then hide the header/footer.
+    $hideclass = '';
+    $devicetype = core_useragent::get_device_type();
+    if($devicetype !== 'mobile' and $devicetype !== 'tablet') {
+        // We can not use the Bootstrap responsive css classes because popups are phone sized on desktop.
+        $hideclass = 'hide';
+    }
+?>
+
+<header role="banner" class="navbar navbar-fixed-top moodle-has-zindex <?php echo $hideclass; ?>">
     <nav role="navigation" class="navbar-inner">
         <div class="container-fluid">
             <a class="brand" href="<?php echo $CFG->wwwroot;?>"><?php echo $SITE->shortname; ?></a>
-            <a class="btn btn-navbar" data-toggle="workaround-collapse" data-target=".nav-collapse">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -88,33 +71,30 @@ echo $OUTPUT->doctype() ?>
 <div id="page" class="container-fluid">
 
     <header id="page-header" class="clearfix">
-        <?php echo $html->heading; ?>
+        <div id="page-navbar" class="clearfix">
+            <div class="breadcrumb-nav"><?php echo $OUTPUT->navbar(); ?></div>
+            <nav class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></nav>
+        </div>
+        <?php echo $OUTPUT->page_heading(); ?>
+        <div id="course-header">
+            <?php echo $OUTPUT->course_header(); ?>
+        </div>
     </header>
 
-    <?php
-    require_once(dirname(__FILE__).'/tiles/slides.php');
-    ?>
     <div id="page-content" class="row-fluid">
-        <div id="<?php echo $regionbsid ?>" class="span9">
-            <div class="row-fluid">
-                <div id="region-main-shoelace" class="<?php echo $contentclass; ?> pull-right">
-                    <section id="region-main" class="row-fluid">
-                        <?php
-                        echo $OUTPUT->main_content();
-                        ?>
-                    </section>
-                </div>
-                <?php echo $OUTPUT->mutant_banjoblocks($pre, $blockclass.' desktop-first-column'); ?>
-            </div>
-        </div>
-        <?php echo $OUTPUT->mutant_banjoblocks($post, 'span3'); ?>
+        <section id="region-main" class="span12">
+            <?php
+            echo $OUTPUT->course_content_header();
+            echo $OUTPUT->main_content();
+            echo $OUTPUT->course_content_footer();
+            ?>
+        </section>
     </div>
 
-    <footer id="page-footer">
+    <footer id="page-footer" class="<?php echo $hideclass; ?>">
+        <div id="course-footer"><?php echo $OUTPUT->course_footer(); ?></div>
         <p class="helplink"><?php echo $OUTPUT->page_doc_link(); ?></p>
         <?php
-        require_once(dirname(__FILE__).'/tiles/social.php');
-        echo $html->footnote;
         echo $OUTPUT->login_info();
         echo $OUTPUT->home_link();
         echo $OUTPUT->standard_footer_html();

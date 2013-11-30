@@ -25,28 +25,27 @@
  */
 
 $nosociallinks    = (empty($PAGE->theme->settings->nosociallinks)) ? false : $PAGE->theme->settings->nosociallinks;
+
+// If there are social links then they are displayed.
+if ($nosociallinks) {
 ?>
-<div class="row-fluid">
-<?php
-    // If there are social links then they are displayed.
-    if ($nosociallinks) {
-    ?>
-    <div class="span12">
-        <p id="socialheading"><?php echo get_string('socialnetworks', 'theme_mutant_banjo')?></p>
-        <ul class="socialnetworks">
-        <?php
-            for ($i = 1; $i <= $nosociallinks; $i++) {
-                $name = 'social'.$i;
-                $value = get_config('theme_mutant_banjo', $name);
-                $iconname = 'socialicon'.$i;
-                $iconvalue = get_config('theme_mutant_banjo', $iconname);
-                if (!empty($value)) { ?>
-                    <li><a href="<?php echo $value; ?>" target="_blank" class="googleplus"><i class="fa fa-2x fa-<?php echo $iconvalue ?>"></i></a></li>
+    <div class="row-fluid">
+        <div class="span12">
+            <p id="socialheading"><?php echo get_string('socialnetworks', 'theme_mutant_banjo');?></p>
+            <ul class="socialnetworks">
+            <?php
+                for ($i = 1; $i <= $nosociallinks; $i++) {
+                    $name = 'social'.$i;
+                    $value = get_config('theme_mutant_banjo', $name);
+                    $iconname = 'socialicon'.$i;
+                    $iconvalue = get_config('theme_mutant_banjo', $iconname);
+                    if (!empty($value)) { ?>
+                        <li><a href="<?php echo $value; ?>" target="_blank"><i class="fa fa-2x fa-<?php echo $iconvalue ?>"></i></a></li>
+                <?php } ?>
             <?php } ?>
-        <?php } ?>
-        </ul>
+            </ul>
+        </div>
     </div>
-    <?php 
-    }
-    ?>
-</div>
+<?php 
+}
+?>

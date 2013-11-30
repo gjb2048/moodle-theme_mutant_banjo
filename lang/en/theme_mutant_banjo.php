@@ -106,14 +106,30 @@ $string['noenrolments'] = 'You have no current enrolments';
 $string['generalsettings'] = 'General settings';
 
 /* Social Networks */
+$string['nosociallinks'] = 'Number of social network links';
+$string['nosociallinks_desc'] = 'Number of social network links you want to add.';
 $string['socialheading'] = 'Social networking';
 $string['socialheadingsub'] = 'Gather followers with social networking';
 $string['socialdesc'] = 'Provide direct links to your social networks.  These will appear in the footer of every page.';
-$string['socialnetworks'] = 'Social networks';
-$string['nosociallinks'] = 'Number of social network links';
-$string['nosociallinks_desc'] = 'Number of social network links you want to add.';
+$string['socialnetworks'] = 'Follow:';
 $string['socialnetworklink'] = 'Social network link ';
-$string['socialnetworklinkdesc'] = 'Social network link number ';
+$string['socialnetworklink_desc'] = 'Social network link number ';
 $string['socialnetworkicon'] = 'Social network icon ';
-$string['socialnetworkicondesc'] = 'Social network icon number ';
+$string['socialnetworkicon_desc'] = 'Social network icon number ';
 
+/* Carousel Slides */
+$string['noslides'] = 'Number of slides';
+$string['noslides_desc'] = 'Number of slides in the slide carousel.  Zero means have no carousel.';
+$string['slidesheading'] = 'Carousel slides';
+$string['slidesheadingsub'] = 'Configure the slides in the carousel';
+$string['slidesdesc'] = 'Provide content of the slides in the carousel.';
+$string['slidetitle'] = 'Slide title';
+$string['slidetitle_desc'] = 'The title of the slide.';
+$string['slidetext'] = 'Slide text';
+$string['slidetext_desc'] = 'The text of the slide.';
+$string['slideimage'] = 'Slide background image';
+$string['slideimage_desc'] = 'The background image of the slide.';
+$string['slidecaption'] = 'Slide caption';
+$string['slidecaption_desc'] = 'The caption of the slide.';
+$string['slideurl'] = 'Slide URL';
+$string['slideurl_desc'] = 'The URL of the slide.';
