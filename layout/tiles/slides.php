@@ -59,12 +59,12 @@ if ($noslides) {
                         $caption = get_config('theme_mutant_banjo', $setting);
                         $setting = 'slideurl'.$i;
                         $url = get_config('theme_mutant_banjo', $setting);
-                        if (!empty($url)) {
-                            ?><a href="<?php echo $url; ?>">
-                    <?php }
                     ?>
                     <div class="<?php if ($first) { echo 'active '; $first = false; } ?> item">
                         <?php
+                        if (!empty($url)) {
+                            ?><a href="<?php echo $url; ?>">
+                  <?php }
                         if (!empty($title)) {
                         ?>
                             <h1><?php echo $title; ?></h1>
@@ -92,13 +92,12 @@ if ($noslides) {
                         </div>
                         <?php
                         }
+                        if (!empty($url)) {
+                            ?></a>
+                        <?php }
                         ?>
                     </div>
-                    <?php
-                    if (!empty($url)) {
-                            ?></a>
-                    <?php }
-                    } ?>
+                <?php } ?>
                 </div>
             <!-- Carousel nav -->
                 <a class="carousel-control left" href="#myCarousel" data-slide="prev">&larr;</a>
