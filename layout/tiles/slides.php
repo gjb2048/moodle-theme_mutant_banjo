@@ -30,7 +30,7 @@ if ($noslides) {
 ?>
     <div class="row-fluid">
         <div class="span12">
-            <div id="myCarousel" class="carousel slide" data-interval="false">
+            <div id="myCarousel" class="carousel slide" data-interval="4000" data-pause="hover">
                 <ol class="carousel-indicators">
                 <?php
                     $first = true;
