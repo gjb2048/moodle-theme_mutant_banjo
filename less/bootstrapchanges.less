@@ -47,6 +47,37 @@
   .buttonBackground(@btnInverseBackground, @btnInverseBackgroundHighlight);
 }
 
+// carousel.less
+.carousel-inner {
+  > .item {
+    min-height: 300px;
+  }
+}
+
+.carousel-control {
+  color: inherit;
+  background: inherit;
+  border: inherit;
+  width: inherit;
+  height: inherit;
+
+  // Hover/focus state
+  &:hover,
+  &:focus {
+    color: inherit;
+  }
+}
+
+.carousel-caption {
+  @captionBackground: darken(@bodyBackgroundAlt, 15%);
+  background: @captionBackground;
+  background: rgba(red(@captionBackground),green(@captionBackground),blue(@captionBackground),.75);
+}
+.carousel-caption h4,
+.carousel-caption p {
+  color: @navbarText;
+}
+
 
 // forms.less
 // --------------------------------------------------

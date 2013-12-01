@@ -30,7 +30,7 @@ if ($noslides) {
 ?>
     <div class="row-fluid">
         <div class="span12">
-            <div id="myCarousel" class="carousel slide" data-interval="4000" data-pause="hover">
+            <div id="myCarousel" class="carousel slide" data-interval="false" data-pause="hover">
                 <ol class="carousel-indicators">
                 <?php
                     $first = true;
@@ -100,8 +100,8 @@ if ($noslides) {
                 <?php } ?>
                 </div>
             <!-- Carousel nav -->
-                <a class="carousel-control left" href="#myCarousel" data-slide="prev">&larr;</a>
-                <a class="carousel-control right" href="#myCarousel" data-slide="next">&rarr;</a>
+                <a class="carousel-control left" href="#myCarousel" data-slide="prev"><i class="fa fa-chevron-circle-left"></i></i></a>
+                <a class="carousel-control right" href="#myCarousel" data-slide="next"><i class="fa fa-chevron-circle-right"></i></a>
             </div>
         </div>
     </div>
