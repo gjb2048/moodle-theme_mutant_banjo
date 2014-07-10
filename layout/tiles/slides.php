@@ -100,7 +100,7 @@ if ($noslides) {
                 <?php } ?>
                 </div>
             <!-- Carousel nav -->
-                <a class="carousel-control left" href="#myCarousel" data-slide="prev"><i class="fa fa-chevron-circle-left"></i></i></a>
+                <a class="carousel-control left" href="#myCarousel" data-slide="prev"><i class="fa fa-chevron-circle-left"></i></a>
                 <a class="carousel-control right" href="#myCarousel" data-slide="next"><i class="fa fa-chevron-circle-right"></i></a>
             </div>
         </div>
